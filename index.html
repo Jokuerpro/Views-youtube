@@ -3,102 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>زيادة مشاهدات يوتيوب</title>
-    <style>
-        /* تنسيقات CSS داخل نفس الملف */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+    <title>تسجيل الدخول</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+        
+        // تهيئة Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDEUESGyUZBJTodObSbBlL5QoSDsIA6p8Q",
+            authDomain: "views-6863d.firebaseapp.com",
+            projectId: "views-6863d",
+            storageBucket: "views-6863d.firebasestorage.app",
+            messagingSenderId: "707784888271",
+            appId: "1:707784888271:web:4b9630797c8115c54bccba"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.register = function() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("تم التسجيل بنجاح!");
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
         }
 
-        header {
-            background-color: #333;
-            color: white;
-            padding: 20px;
+        window.login = function() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("تم تسجيل الدخول بنجاح!");
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
         }
 
-        h1 {
-            margin: 0;
+        window.loginWithGoogle = function() {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    alert("تم تسجيل الدخول باستخدام Google بنجاح!");
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
         }
-
-        #video-section {
-            margin: 20px;
-        }
-
-        .video-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .video-card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            max-width: 350px;
-            width: 100%;
-        }
-
-        button.watch-button {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #ff0000;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button.watch-button:hover {
-            background-color: #cc0000;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            margin-top: 20px;
-        }
-    </style>
+    </script>
 </head>
 <body>
-
-    <header>
-        <h1>زيادة مشاهدات يوتيوب مجانًا</h1>
-        <p>اشترك الآن لمشاهدة الفيديوهات وكسب النقاط!</p>
-    </header>
-
-    <section id="video-section">
-        <h2>فيديوهات يمكنك مشاهدتها</h2>
-        <div class="video-container">
-            <div class="video-card">
-                <iframe width="300" height="200" src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <button class="watch-button">شاهد الفيديو</button>
-            </div>
-            <div class="video-card">
-                <iframe width="300" height="200" src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <button class="watch-button">شاهد الفيديو</button>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 جميع الحقوق محفوظة.</p>
-    </footer>
-
-    <script>
-        // كود JavaScript داخل نفس الملف
-        document.querySelectorAll('.watch-button').forEach(button => {
-            button.addEventListener('click', () => {
-                alert('تمت مشاهدة الفيديو! يمكنك الآن كسب النقاط.');
-            });
-        });
-    </script>
-
+    <h2>تسجيل الدخول / إنشاء حساب</h2>
+    <input type="email" id="email" placeholder="أدخل البريد الإلكتروني"><br>
+    <input type="password" id="password" placeholder="أدخل كلمة المرور"><br>
+    <button onclick="register()">تسجيل جديد</button>
+    <button onclick="login()">تسجيل الدخول</button>
+    <button onclick="loginWithGoogle()">تسجيل الدخول باستخدام Google</button>
 </body>
 </html>
